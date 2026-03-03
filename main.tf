@@ -1,22 +1,29 @@
 resource "azurerm_resource_group" "rg" {
-  name     = "cicdtest"
+  name     = "rg-laci-cicd"
   location = "westeurope"
 }
 
 resource "azurerm_service_plan" "appserviceplan" {
-  name                = "webapp-asplan"
+  name                = "webapp-asplan-laci"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   os_type             = "Linux"
-  sku_name            = "B1"
+  sku_name            = "F1"
 }
 
-resource "azurerm_app_service" "app" {
-  name                = "hello-cicd-app"
+resource "azurerm_linux_web_app" "app" {
+  name                = "hello-laci-48291"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  app_service_plan_id = azurerm_service_plan.appserviceplan.id
+  service_plan_id     = azurerm_service_plan.appserviceplan.id
+
   site_config {
-    linux_fx_version = "NODE|24-lts"
+	always_on = false
+    application_stack {
+      node_version = "24-lts"
+    }
   }
 }
+
+
+
