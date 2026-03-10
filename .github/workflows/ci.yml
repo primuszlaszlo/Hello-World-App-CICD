@@ -86,5 +86,5 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: hello-cicd-app
+          app-name: hello-laci-48291
           package: .
